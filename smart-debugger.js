@@ -2,15 +2,15 @@
     'use strict';
 
     var smartDebugger = {
-            id: 'smartDebugger',
+            id: 'smartDebugger', // Change just in case of conflicts
             active: false,
             visible: false,
-            activationSequence: [38, 38, 40, 38],
+            activationSequence: [38, 38, 40, 38], // UP, UP, DOWN, UP
             styles: {
                 fontSize: '200%',
-                size: '50%',
-                logColor: '#ffff55',
-                errorColor: '#ff5555'
+                size: '50%', // Window/Debugger size
+                logColor: '#ffff55', // Yellow color
+                errorColor: '#ff5555' // Red color
             }
         },
         aux = 0;
@@ -50,10 +50,12 @@
         document.body.appendChild(_createElement('style', textStyle));
     }
 
+    // Create and append Debugger to DOM
     function _createDebuggerElement () {
         document.body.appendChild(_createElement('ul#' + smartDebugger.id));
     }
 
+    // Append Errors to Debugger
     function smartErrorLog (errorMsg, url, lineNumber, column, errorObj) {
         if (errorMsg.indexOf('Script error.') > -1) {
             return;
@@ -61,12 +63,13 @@
 
         var date = new Date(),
             time = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds(),
-            textError = '[Error at ' + time + '] ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber + ' Column: ' + column + ' StackTrace: ' +  errorObj
+            textError = '[' + time + '] ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber + ' Column: ' + column + ' StackTrace: ' +  errorObj
         ;
 
         elementDebugger.appendChild(_createElement('li.error', textError));
     }
 
+    // Append Logs to Debugger
     function smartDebuggerLog () {
         var elementDebugger = document.getElementById(smartDebugger.id),
             textError = '',
